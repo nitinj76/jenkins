@@ -30,11 +30,11 @@ RUN apt-get update && apt-get install -y openjdk-7-jdk && rm -rf /var/lib/apt/li
 RUN apt-get update && apt-get install -y wget git curl unzip && rm -rf /var/lib/apt/lists/*
 
 # INSTALL TYPESAFE ACTIVATOR
-RUN mkdir $HOME_ACTIVATOR
-RUN cd $HOME_ACTIVATOR
+RUN mkdir $ACTIVATOR_HOME
+RUN cd $ACTIVATOR_HOME
 RUN wget http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip
 RUN unzip typesafe-activator-$ACTIVATOR_VERSION.zip -d .
-RUN mv $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION $HOME_ACTIVATOR/activator
+RUN mv $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION $ACTIVATOR_HOME/activator
 RUN rm typesafe-activator-$ACTIVATOR_VERSION.zip
 #RUN ln /home/jenkins/activator/activator /usr/local/bin/activator
 #RUN ln /home/jenkins/activator/activator-launch-$ACTIVATOR_VERSION.jar /usr/local/bin/activator-launch-$ACTIVATOR_VERSION.jar
@@ -52,8 +52,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y jenkins
 
 EXPOSE 8080
 
-RUN chown -R jenkins:jenkins "$JENKINS_HOME"
-RUN chown -R jenkins:jenkins $HOME_ACTIVATOR
+RUN chown -R jenkins:jenkins $JENKINS_HOME
+RUN chown -R jenkins:jenkins $ACTIVATOR_HOME
 #RUN chown -R jenkins /usr/local/activator/activator-launch-$ACTIVATOR_VERSION.jar
 
 # will be used by attached slave agents:

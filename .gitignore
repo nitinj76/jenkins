@@ -2,3 +2,4 @@ volume/var/lib/jenkins/.ivy2
 volume/var/lib/jenkins/.sbt
 volume/var/lib/jenkins/.java
 volume/var/lib/jenkins/war
+volume/var/lib/jenkins/jobs
