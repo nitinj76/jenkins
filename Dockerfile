@@ -5,9 +5,9 @@ MAINTAINER Peter Andersen <peter@sproutup.co>
 
 ENV ACTIVATOR_VERSION 1.3.2
 ENV DEBIAN_FRONTEND noninteractive
-ENV AWS_ACCESS_KEY_ID=AKIAJM5X5NV444LJEUSA
-ENV AWS_SECRET_KEY=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
-ENV AWS_SECRET_ACCESS_KEY=UHpVP/axa3eOmfCOcSQFGXwK4fzYMzHV8aYkh38X
+ENV AWS_ACCESS_KEY_ID AKIAJM5X5NV444LJEUSA
+ENV AWS_SECRET_KEY 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
+ENV AWS_SECRET_ACCESS_KEY UHpVP/axa3eOmfCOcSQFGXwK4fzYMzHV8aYkh38X
 ENV JENKINS_HOME /opt/jenkins
 ENV ACTIVATOR_HOME /opt/activator
 
@@ -32,12 +32,13 @@ RUN apt-get update && apt-get install -y wget git curl unzip && rm -rf /var/lib/
 # INSTALL TYPESAFE ACTIVATOR
 RUN mkdir $ACTIVATOR_HOME
 RUN cd $ACTIVATOR_HOME
-RUN wget http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip
+RUN wget ‐‐quiet http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip
 RUN unzip typesafe-activator-$ACTIVATOR_VERSION.zip -d .
-RUN mv $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION $ACTIVATOR_HOME/activator
+#RUN mv $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION $ACTIVATOR_HOME/activator
 RUN rm typesafe-activator-$ACTIVATOR_VERSION.zip
-#RUN ln /home/jenkins/activator/activator /usr/local/bin/activator
-#RUN ln /home/jenkins/activator/activator-launch-$ACTIVATOR_VERSION.jar /usr/local/bin/activator-launch-$ACTIVATOR_VERSION.jar
+RUN chmod a+x $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator
+RUN ln $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator /usr/local/bin/activator
+RUN ln $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator-launch-$ACTIVATOR_VERSION.jar /usr/local/bin/activator-launch-$ACTIVATOR_VERSION.jar
 
 # INSTALL EB CLI
 RUN apt-get update && apt-get install -y python-pip && rm -rf /var/lib/apt/lists/*
