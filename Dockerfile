@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y wget git curl unzip && rm -rf /var/lib/
 # INSTALL TYPESAFE ACTIVATOR
 RUN mkdir $ACTIVATOR_HOME
 RUN cd $ACTIVATOR_HOME
-RUN wget ‐‐quiet http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip
+RUN wget -nv http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip
 RUN unzip typesafe-activator-$ACTIVATOR_VERSION.zip -d .
 #RUN mv $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION $ACTIVATOR_HOME/activator
 RUN rm typesafe-activator-$ACTIVATOR_VERSION.zip
