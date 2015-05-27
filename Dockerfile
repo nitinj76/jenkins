@@ -21,6 +21,9 @@ RUN useradd -d $JENKINS_HOME -u 1000 -m -s /bin/bash jenkins
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
+# ADD SSH KEY
+ADD .ssh $JENKINS_HOME/.ssh
+
 # INSTALL JAVA
 ENV JAVA_VERSION 7u75
 ENV JAVA_DEBIAN_VERSION 7u75-2.5.4-2
@@ -61,6 +64,10 @@ RUN chown -R jenkins:jenkins $ACTIVATOR_HOME
 #EXPOSE 50000
 
 USER jenkins
+
+# GET JENKINS CONFIG FROM GITHUB
+RUN cd $JENKINS_HOME
+RUN git clone git@github.com:sproutup/jenkins.git
 
 CMD ["/usr/bin/java", "-jar", "/usr/share/jenkins/jenkins.war"]
 
