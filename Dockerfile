@@ -23,6 +23,7 @@ ENV LANG C.UTF-8
 
 # ADD SSH KEY
 ADD .ssh $JENKINS_HOME/.ssh
+RUN chmod 600 $JENKINS_HOME/.ssh/id_rsa
 
 # INSTALL JAVA
 ENV JAVA_VERSION 7u75
@@ -37,7 +38,6 @@ RUN mkdir $ACTIVATOR_HOME
 RUN cd $ACTIVATOR_HOME
 RUN wget -nv http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip
 RUN unzip typesafe-activator-$ACTIVATOR_VERSION.zip -d .
-#RUN mv $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION $ACTIVATOR_HOME/activator
 RUN rm typesafe-activator-$ACTIVATOR_VERSION.zip
 RUN chmod a+x $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator
 RUN ln $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator /usr/local/bin/activator
@@ -67,7 +67,7 @@ USER jenkins
 
 # GET JENKINS CONFIG FROM GITHUB
 RUN cd $JENKINS_HOME
-RUN git clone git@github.com:sproutup/jenkins.git
+#RUN git clone git@github.com:sproutup/jenkins.git
 
 CMD ["/usr/bin/java", "-jar", "/usr/share/jenkins/jenkins.war"]
 
