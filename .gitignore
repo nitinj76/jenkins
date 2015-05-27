@@ -6,8 +6,8 @@ opt/jenkins/war
 *.log
 .*
 builds/
-lastStable/
-lastSuccessful/
+lastStable
+lastSuccessful
 nextBuildNumber
 scm-polling.log
 workspace/
