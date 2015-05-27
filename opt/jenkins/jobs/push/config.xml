@@ -30,9 +30,7 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /opt/jenkins
-git add -A
-git commit -m &quot;updated&quot;
-</command>
+git push origin master</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
