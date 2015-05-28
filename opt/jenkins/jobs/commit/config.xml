@@ -30,6 +30,8 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /opt/jenkins
+git config --global user.email &quot;jenins@sproutup.co&quot;
+git config --global user.name &quot;Jenkins&quot;
 git add -A
 git commit -m &quot;updated&quot;
 </command>
