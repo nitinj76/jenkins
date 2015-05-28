@@ -56,7 +56,10 @@ RUN apt-get update && apt-get install -y python-pip && rm -rf /var/lib/apt/lists
 
 # GET JENKINS CONFIG FROM GITHUB
 USER jenkins
-RUN git clone git@github.com:sproutup/jenkins.git $JENKINS_BASE/jenkins
+RUN git clone git@github.com:sproutup/jenkins.git $JENKINS_BASE/jenkins && /
+    git config --global user.email "jenins@sproutup.co" && /
+    git config --global user.name "Jenkins"
+
 USER root
 RUN ln -s $JENKINS_BASE/jenkins/opt/jenkins $JENKINS_HOME
 
