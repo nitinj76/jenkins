@@ -2,7 +2,12 @@ opt/jenkins/.ivy2
 opt/jenkins/.sbt
 opt/jenkins/.java
 opt/jenkins/war
-opt/jenkins/jobs
 *.zip
 *.log
 .*
+builds/
+lastStable/
+lastSuccessful/
+nextBuildNumber
+scm-polling.log
+workspace/

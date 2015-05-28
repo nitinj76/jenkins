@@ -17,17 +17,18 @@ RUN apt-get update && apt-get install -y && rm -rf /var/lib/apt/lists/*
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/vloume from a data container, 
 # ensure you use same uid
-RUN useradd -u 1000 -m -s /bin/bash jenkins
-RUN mkdir $JENKINS_HOME
-RUN chown -R jenkins:jenkins $JENKINS_HOME
+RUN useradd -u 1000 -m -s /bin/bash jenkins 
+##&& \
+##    mkdir $JENKINS_HOME && \
+##    chown -R jenkins:jenkins $JENKINS_HOME
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
 # ADD SSH KEY
 ADD .ssh $JENKINS_BASE/.ssh
-RUN chown -R jenkins:jenkins $JENKINS_BASE
-RUN chmod 600 $JENKINS_BASE/.ssh/id_rsa
+RUN chown -R jenkins:jenkins $JENKINS_BASE && \
+    chmod 600 $JENKINS_BASE/.ssh/id_rsa
 
 # INSTALL JAVA
 ENV JAVA_VERSION 7u75
@@ -38,35 +39,37 @@ RUN apt-get update && apt-get install -y openjdk-7-jdk && rm -rf /var/lib/apt/li
 RUN apt-get update && apt-get install -y wget git curl unzip && rm -rf /var/lib/apt/lists/*
 
 # INSTALL TYPESAFE ACTIVATOR
-RUN mkdir $ACTIVATOR_HOME
-RUN cd $ACTIVATOR_HOME
-RUN wget -nv http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION.zip
-RUN unzip typesafe-activator-$ACTIVATOR_VERSION.zip -d .
-RUN rm typesafe-activator-$ACTIVATOR_VERSION.zip
-RUN chmod a+x $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator
-RUN ln $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator /usr/local/bin/activator
-RUN ln $HOME_ACTIVATOR/activator-$ACTIVATOR_VERSION/activator-launch-$ACTIVATOR_VERSION.jar /usr/local/bin/activator-launch-$ACTIVATOR_VERSION.jar
+RUN mkdir $ACTIVATOR_HOME && \
+    cd $ACTIVATOR_HOME && \
+    wget -nv http://downloads.typesafe.com/typesafe-activator/$ACTIVATOR_VERSION/typesafe-activator-$ACTIVATOR_VERSION-minimal.zip && \
+    unzip typesafe-activator-$ACTIVATOR_VERSION-minimal.zip -d . && \
+    rm typesafe-activator-$ACTIVATOR_VERSION-minimal.zip && \
+    mv activator-$ACTIVATOR_VERSION-minimal activator-$ACTIVATOR_VERSION && \
+    chmod a+x activator-$ACTIVATOR_VERSION/activator && \
+    ln activator-$ACTIVATOR_VERSION/activator /usr/local/bin/activator && \
+    ln activator-$ACTIVATOR_VERSION/activator-launch-$ACTIVATOR_VERSION.jar /usr/local/bin/activator-launch-$ACTIVATOR_VERSION.jar
 
 # INSTALL EB CLI
-RUN apt-get update && apt-get install -y python-pip && rm -rf /var/lib/apt/lists/*
-RUN pip install awsebcli
-RUN eb --version
+RUN apt-get update && apt-get install -y python-pip && rm -rf /var/lib/apt/lists/* && \
+    pip install awsebcli && \
+    eb --version
 
 # GET JENKINS CONFIG FROM GITHUB
 USER jenkins
-RUN git clone git@github.com:sproutup/jenkins.git $JENKINS_HOME
+RUN git clone git@github.com:sproutup/jenkins.git $JENKINS_BASE/jenkins
 USER root
+RUN ln -s $JENKINS_BASE/jenkins/opt/jenkins $JENKINS_HOME
 
 # INSTALL JENKINS
-RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-RUN sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y jenkins
+RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add - && \
+    sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list' && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y jenkins
 
 EXPOSE 8080
 
-RUN chown -R jenkins:jenkins $JENKINS_HOME
-RUN chown -R jenkins:jenkins $ACTIVATOR_HOME
+RUN chown -R jenkins:jenkins $JENKINS_HOME && \
+    chown -R jenkins:jenkins $ACTIVATOR_HOME
 #RUN chown -R jenkins /usr/local/activator/activator-launch-$ACTIVATOR_VERSION.jar
 
 # will be used by attached slave agents:
