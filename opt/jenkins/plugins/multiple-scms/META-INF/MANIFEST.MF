@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: rodrigc
+Build-Jdk: 1.7.0_76
+Extension-Name: multiple-scms
+Specification-Title: Allows multiple SCM plugins to be used in a job.
+Implementation-Title: multiple-scms
+Implementation-Version: 0.4
+Group-Id: org.jenkins-ci.plugins
+Short-Name: multiple-scms
+Long-Name: Jenkins Multiple SCMs plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Multiple+SCMs+Plugin
+Plugin-Version: 0.4
+Hudson-Version: 1.568
+Jenkins-Version: 1.568
+Plugin-Developers: Kevin Bell:kbell:kbell6397@gmail.com
+

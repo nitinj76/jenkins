@@ -9,6 +9,7 @@ ENV AWS_ACCESS_KEY_ID AKIAJM5X5NV444LJEUSA
 ENV AWS_SECRET_KEY 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
 ENV AWS_SECRET_ACCESS_KEY UHpVP/axa3eOmfCOcSQFGXwK4fzYMzHV8aYkh38X
 ENV JENKINS_HOME /opt/jenkins
+ENV JENKINS_BASE /home/jenkins
 ENV ACTIVATOR_HOME /opt/activator
 
 RUN apt-get update && apt-get install -y && rm -rf /var/lib/apt/lists/*
@@ -16,14 +17,17 @@ RUN apt-get update && apt-get install -y && rm -rf /var/lib/apt/lists/*
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/vloume from a data container, 
 # ensure you use same uid
-RUN useradd -d $JENKINS_HOME -u 1000 -m -s /bin/bash jenkins
+RUN useradd -u 1000 -m -s /bin/bash jenkins
+RUN mkdir $JENKINS_HOME
+RUN chown -R jenkins:jenkins $JENKINS_HOME
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
 
 # ADD SSH KEY
-ADD .ssh $JENKINS_HOME/.ssh
-RUN chmod 600 $JENKINS_HOME/.ssh/id_rsa
+ADD .ssh $JENKINS_BASE/.ssh
+RUN chown -R jenkins:jenkins $JENKINS_BASE
+RUN chmod 600 $JENKINS_BASE/.ssh/id_rsa
 
 # INSTALL JAVA
 ENV JAVA_VERSION 7u75
@@ -48,6 +52,11 @@ RUN apt-get update && apt-get install -y python-pip && rm -rf /var/lib/apt/lists
 RUN pip install awsebcli
 RUN eb --version
 
+# GET JENKINS CONFIG FROM GITHUB
+USER jenkins
+RUN git clone git@github.com:sproutup/jenkins.git $JENKINS_HOME
+USER root
+
 # INSTALL JENKINS
 RUN wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 RUN sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
@@ -64,10 +73,6 @@ RUN chown -R jenkins:jenkins $ACTIVATOR_HOME
 #EXPOSE 50000
 
 USER jenkins
-
-# GET JENKINS CONFIG FROM GITHUB
-RUN cd $JENKINS_HOME
-#RUN git clone git@github.com:sproutup/jenkins.git
 
 CMD ["/usr/bin/java", "-jar", "/usr/share/jenkins/jenkins.war"]
 

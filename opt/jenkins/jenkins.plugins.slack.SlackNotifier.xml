@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jenkins.plugins.slack.SlackNotifier_-DescriptorImpl plugin="slack@1.7">
+  <teamDomain>sproutup</teamDomain>
+  <token>DyCzH4AL6rbvUbrqdQAAiI4H</token>
+  <room></room>
+  <buildServerUrl>/</buildServerUrl>
+</jenkins.plugins.slack.SlackNotifier_-DescriptorImpl>

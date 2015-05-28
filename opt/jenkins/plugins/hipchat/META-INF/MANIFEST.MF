@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: aldaris
+Build-Jdk: 1.7.0_76
+Extension-Name: hipchat
+Specification-Title: A Build status publisher that notifies channels o
+ n a HipChat server
+Implementation-Title: hipchat
+Implementation-Version: 0.1.9
+Group-Id: org.jvnet.hudson.plugins
+Short-Name: hipchat
+Long-Name: Jenkins HipChat Plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/HipChat+Plugin
+Plugin-Version: 0.1.9
+Hudson-Version: 1.447
+Jenkins-Version: 1.447
+Plugin-Developers: Peter Major:aldaris:
+
