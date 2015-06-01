@@ -37,6 +37,8 @@ if ! git diff-index --quiet HEAD --; then
   echo &quot;found changes&quot;
   git add -A
   git commit -m &quot;updated&quot;
+else
+  echo &quot;no changes&quot;
 fi
 </command>
     </hudson.tasks.Shell>
