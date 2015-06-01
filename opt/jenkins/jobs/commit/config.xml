@@ -30,10 +30,14 @@
   <builders>
     <hudson.tasks.Shell>
       <command>cd /opt/jenkins
+echo &quot;Starting git commit&quot;
 git config --global user.email &quot;jenins@sproutup.co&quot;
 git config --global user.name &quot;Jenkins&quot;
-git add -A
-git commit -m &quot;updated&quot;
+if ! git diff-index --quiet HEAD --; then
+  echo &quot;found changes&quot;
+  git add -A
+  git commit -m &quot;updated&quot;
+fi
 </command>
     </hudson.tasks.Shell>
   </builders>
