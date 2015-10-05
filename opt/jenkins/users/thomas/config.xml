@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <user>
-  <fullName>Peter Andersen</fullName>
+  <fullName>thomas</fullName>
   <properties>
     <hudson.model.PaneStatusProperties>
       <collapsed/>
     </hudson.model.PaneStatusProperties>
     <jenkins.security.ApiTokenProperty>
-      <apiToken>lS/p8ywOhZZEdFy3H+DnwZ9bpS34DCV8KEbQK2wEUy27oHhaeg//k+k9maRmk0fb</apiToken>
+      <apiToken>j8xA/n9Ai2j/q+lqigLXgtpiMgj+/j+3EzK9BFFX+/W7oHhaeg//k+k9maRmk0fb</apiToken>
     </jenkins.security.ApiTokenProperty>
     <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@1.22">
       <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"/>
@@ -25,17 +25,8 @@
     <hudson.search.UserSearchProperty>
       <insensitiveSearch>false</insensitiveSearch>
     </hudson.search.UserSearchProperty>
-    <hudson.security.HudsonPrivateSecurityRealm_-Details>
-      <passwordHash>#jbcrypt:$2a$10$5DNYz/ZCtwxYAgmHEs70oOJlSXSvB2WAEV6TzNfNj3640yCNFutGW</passwordHash>
-    </hudson.security.HudsonPrivateSecurityRealm_-Details>
     <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.15">
-      <emailAddress>peter@ryanandersen.dk</emailAddress>
+      <emailAddress>thomas@Thomass-MBP.hsd1.md.comcast.net</emailAddress>
     </hudson.tasks.Mailer_-UserProperty>
-    <jenkins.security.LastGrantedAuthoritiesProperty>
-      <roles>
-        <string>authenticated</string>
-      </roles>
-      <timestamp>1441032633852</timestamp>
-    </jenkins.security.LastGrantedAuthoritiesProperty>
   </properties>
 </user>
